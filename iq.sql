@@ -48,3 +48,22 @@ SELECT name
 FROM neighborhood_data
 GROUP BY name
 HAVING COUNT(id) = 0;
+
+-- Last Transaction
+
+-- Given a table of bank transactions with columns id, transaction_value, and created_at representing the date and time for each transaction, write a query to get the last transaction for each day.
+
+-- The output should include the id of the transaction, datetime of the transaction, and the transaction amount. Order the transactions by datetime.
+
+SELECT 
+    id, 
+    created_at,
+    transaction_value
+    FROM bank_transactions
+    WHERE created_at IN (
+        SELECT 
+            MAX(created_at)
+            FROM bank_transactions
+            GROUP BY DATE(created_at)
+    )
+    ORDER BY created_at;
