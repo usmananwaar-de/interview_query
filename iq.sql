@@ -32,3 +32,19 @@ WITH data AS (
     GROUP BY 2
         HAVING COUNT(*) >= 10
     LIMIT 3;
+
+-- Empty Neighborhoods
+-- We’re given two tables, a users table with demographic information and the neighborhood they live in and a neighborhoods table.
+
+-- Write a query that returns all neighborhoods that have 0 users. 
+
+WITH neighborhood_data AS (
+    SELECT n.name, u.id
+    FROM neighborhoods as n
+    LEFT JOIN users as u
+    ON n.id = u.neighborhood_id
+)
+SELECT name
+FROM neighborhood_data
+GROUP BY name
+HAVING COUNT(id) = 0;
